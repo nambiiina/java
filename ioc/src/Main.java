@@ -3,7 +3,13 @@ import metier.MetierImpl;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("IOC");
+        System.out.println("### STATIC IOC ###");
+        /**
+         * Static ioc
+         */
+        staticIoc();
+    }
+    private static void staticIoc() {
         /**
          * Static IOC
          * Strong coupling
