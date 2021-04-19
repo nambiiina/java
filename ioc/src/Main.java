@@ -3,9 +3,9 @@ import metier.MetierImpl;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Static IOC");
         /**
-         * weak coupling
+         * Static IOC
+         * Strong coupling
          */
         MetierImpl metierImpl = new MetierImpl();
         DaoImpl daoImpl = new DaoImpl();

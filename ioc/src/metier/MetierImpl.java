@@ -4,6 +4,10 @@ import dao.IDao;
 
 public class MetierImpl implements IMetier {
 
+    /**
+     * Open/Closed principle
+     */
+
     private IDao dao;
 
     @Override
