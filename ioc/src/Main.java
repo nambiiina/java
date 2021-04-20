@@ -2,6 +2,8 @@ import dao.DaoImpl;
 import dao.IDao;
 import metier.IMetier;
 import metier.MetierImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -10,7 +12,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         // staticIoc();
-        dynamicIoc();
+        //dynamicIoc();
+        ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
     }
     private static void staticIoc() {
         /**
