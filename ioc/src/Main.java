@@ -13,7 +13,11 @@ public class Main {
     public static void main(String[] args) {
         // staticIoc();
         //dynamicIoc();
+
+        //Run spring
+        //create a collection (Map) of beans
         ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
+        springIoc(context);
     }
     private static void staticIoc() {
         /**
@@ -50,5 +54,12 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private static void springIoc(ApplicationContext context) {
+        /**
+         * Spring IOC by using xml file
+         */
+        IMetier metier = context.getBean(IMetier.class);
+        System.out.println("Résultat du calcul : " + metier.calcul());
     }
 }

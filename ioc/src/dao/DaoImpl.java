@@ -11,4 +11,11 @@ public class DaoImpl implements IDao {
          */
         return 98;
     }
+    public void init() {
+        System.out.println("Initialisation de DaoImpl");
+    }
+
+    public DaoImpl() {
+        System.out.println("Instanciation de DaoImpl");
+    }
 }

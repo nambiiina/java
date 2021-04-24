@@ -17,7 +17,16 @@ public class MetierImpl implements IMetier {
         return res;
     }
 
+    public void init() {
+        System.out.println("Initialisation de MetierImpl");
+    }
+
     public void setDao(IDao dao) {
         this.dao = dao;
+        System.out.println("Injection des dépendances");
+    }
+
+    public MetierImpl() {
+        System.out.println("Instanciation de MetierImpl");
     }
 }
