@@ -3,6 +3,7 @@ import dao.IDao;
 import metier.IMetier;
 import metier.MetierImpl;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
@@ -16,14 +17,22 @@ public class Main {
 
         //Run spring
         //create a collection (Map) of beans
-        ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
-        springIoc(context);
+        //Use xml config file
+        //ApplicationContext contextXml = new ClassPathXmlApplicationContext("config.xml");
+        //springIocXml(contextXml);
+
+        //Use annotation
+        //scan class
+        //need spring aop dependency
+        ApplicationContext contextAnnotation = new AnnotationConfigApplicationContext("dao", "metier");
+        springIocAnnotation(contextAnnotation);
     }
     private static void staticIoc() {
         /**
          * Static IOC
          * Strong coupling
          */
+        System.out.println("### Static IOC ###");
         MetierImpl metierImpl = new MetierImpl();
         DaoImpl daoImpl = new DaoImpl();
         metierImpl.setDao(daoImpl);
@@ -34,6 +43,7 @@ public class Main {
          * Dynamic IOC
          * Weak coupling
          */
+        System.out.println("### Dynamic IOC ###");
         try {
             Scanner scanner = new Scanner(new File("config.txt"));
             String daoClassName = scanner.nextLine();
@@ -55,10 +65,20 @@ public class Main {
             e.printStackTrace();
         }
     }
-    private static void springIoc(ApplicationContext context) {
+    private static void springIocXml(ApplicationContext context) {
         /**
          * Spring IOC by using xml file
          */
+        System.out.println("### Spring XML ###");
+        IMetier metier = context.getBean(IMetier.class);
+        System.out.println("Résultat du calcul : " + metier.calcul());
+    }
+
+    private static void springIocAnnotation(ApplicationContext context) {
+        /**
+         * Spring IOC by using Annotation
+         */
+        System.out.println("### Spring Annotation ###");
         IMetier metier = context.getBean(IMetier.class);
         System.out.println("Résultat du calcul : " + metier.calcul());
     }
