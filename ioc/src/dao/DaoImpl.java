@@ -1,5 +1,8 @@
 package dao;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class DaoImpl implements IDao {
     @Override
     public double getData() {
@@ -10,5 +13,12 @@ public class DaoImpl implements IDao {
          * Connect to database
          */
         return 98;
+    }
+    public void init() {
+        System.out.println("Initialisation de DaoImpl");
+    }
+
+    public DaoImpl() {
+        System.out.println("Instanciation de DaoImpl");
     }
 }
