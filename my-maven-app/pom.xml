@@ -2,14 +2,41 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- Information about project -->
+
+  <!--Group that manage the project-->
   <groupId>org.example.demo</groupId>
+  <!--Project id-->
   <artifactId>my-maven-app</artifactId>
+  <!-- SNAPSHOT means it is version under development -->
   <version>1.0-SNAPSHOT</version>
+  <!--Packaging-->
   <packaging>jar</packaging>
 
+  <!-- General information -->
   <name>my-maven-app</name>
+  <description>The description of this app</description>
   <url>http://maven.apache.org</url>
 
+  <!-- Group that manage the project -->
+  <organization>
+    <name>My organization</name>
+    <url>http://www.example.org</url>
+  </organization>
+  <!-- License -->
+  <licenses>
+    <license>
+      <name>Apache License Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+
+  <!-- Constant -->
+  <!--Project.basedir
+  env.path
+  java.version
+  Project.name-->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -22,4 +49,39 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <!--Change build directory-->
+    <!--<directory>${project.basedir}/output</directory>-->
+
+    <!--Plugin management-->
+    <pluginManagement>
+      <plugins>
+        <!--Plugin to generate jar-->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <!--Before : $java -cp ./target/my-maven-app-1.0-SNAPSHOT.jar org.example.demo.App-->
+      <!--Define main class in jar => executable jar-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <!--Create manifest to define main class-->
+            <manifest>
+              <mainClass>org.example.demo.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
+
 </project>
