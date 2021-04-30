@@ -50,9 +50,42 @@
     </dependency>
   </dependencies>
 
+
+  <!-- ############################################# PROFILES ############################################# -->
+  <!-- Create profiles for test and prod-->
+  <!-- Need to remove conf resources of principle build -->
+  <!-- Construct test environment : mvn clean package -P test -->
+  <profiles>
+    <profile>
+      <id>test</id>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/resources/conf-test</directory>
+            <filtering>true</filtering>
+          </resource>
+        </resources>
+      </build>
+    </profile>
+    <profile>
+      <id>prod</id>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/resources/conf-prod</directory>
+            <filtering>true</filtering>
+          </resource>
+        </resources>
+      </build>
+    </profile>
+  </profiles>
+
+
+  <!-- ############################################# BUILD ############################################# -->
   <build>
     <!--Change build directory-->
     <!--<directory>${project.basedir}/output</directory>-->
+
 
     <!--Plugin management-->
     <pluginManagement>
@@ -65,6 +98,8 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
+
     <plugins>
       <!--Before : $java -cp ./target/my-maven-app-1.0-SNAPSHOT.jar org.example.demo.App-->
       <!--Define main class in jar => executable jar-->
@@ -81,6 +116,16 @@
         </configuration>
       </plugin>
     </plugins>
+
+
+    <!-- Filtering resources -->
+    <!-- Dynamically generate the content of a properties file -->
+    <!--<resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>-->
 
   </build>
 
