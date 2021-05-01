@@ -15,7 +15,15 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <!-- Dependencies -->
   <dependencies>
+    <!-- Modules -->
+    <dependency>
+      <groupId>org.example.demo</groupId>
+      <artifactId>ticket-model</artifactId>
+    </dependency>
+    <!-- Third-party libraries -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
