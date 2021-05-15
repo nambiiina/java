@@ -22,6 +22,10 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- another way to configure maven compiler -->
     <!--<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>-->
+
+    <application.name>TicketTac</application.name>
+    <maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
+    <build.timestamp>${maven.build.timestamp}</build.timestamp>
   </properties>
 
   <dependencies>
@@ -78,7 +82,31 @@
     </profile>
     <profile>
       <id>target-prod</id>
-      <!-- ... -->
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>enforce-no-snapshot-prod</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <!-- The project and parent do not be SNAPSHOT -->
+                    <requireReleaseVersion />
+                    <!-- Any dependency do not be in SNAPSHOT -->
+                    <requireReleaseDeps />
+                  </rules>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 
@@ -105,6 +133,22 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <!-- Packaging WAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <webResources>
+            <resource>
+              <directory>src/main/webapp</directory>
+              <filtering>true</filtering>
+              <includes>
+                <include>index.jsp</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>
       </plugin>
     </plugins>
   </build>

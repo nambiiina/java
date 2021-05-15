@@ -113,11 +113,13 @@
     <!-- Global plugins management -->
     <pluginManagement>
       <plugins>
+        <!-- Packaging JAR -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.2.0</version>
         </plugin>
+        <!-- Compilation sources java -->
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
@@ -126,10 +128,17 @@
             <showWarnings>true</showWarnings>
           </configuration>
         </plugin>
+        <!-- Verify the rules of context construction Maven -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
           <version>3.0.0-M3</version>
+        </plugin>
+        <!-- Packaging WAR -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.3.1</version>
         </plugin>
       </plugins>
     </pluginManagement>
