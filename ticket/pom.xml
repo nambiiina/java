@@ -13,6 +13,14 @@
   <name>ticket</name>
   <url>http://maven.apache.org</url>
 
+  <!-- DistributionManagement -->
+  <distributionManagement>
+    <site>
+      <id>site-projet</id>
+      <url>scp://localhost/tmp/</url>
+    </site>
+  </distributionManagement>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -146,8 +154,96 @@
           <artifactId>maven-assembly-plugin</artifactId>
           <version>3.3.0</version>
         </plugin>
+        <!-- Generate site -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.9.1</version>
+          <configuration>
+            <locales>fr</locales>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
+
+  <!-- Report Management -->
+  <reporting>
+    <plugins>
+      <!-- General report on the project -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.1.2</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+                <report>index</report>
+                <report>summary</report>
+                <report>plugins</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <!-- test report -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <linkXRef>false</linkXRef>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <id>aggregate</id>
+            <reports>
+              <report>report</report>
+            </reports>
+            <inherited>false</inherited>
+            <configuration>
+                <aggregate>true</aggregate>
+            </configuration>
+          </reportSet>
+          <reportSet>
+            <id>modules</id>
+            <inherited>true</inherited>
+            <reports>
+              <report>report</report>
+            </reports>
+            <configuration>
+              <aggregate>false</aggregate>
+            </configuration>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <!-- Code quality report with Checkstyle -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.17</version>
+        <configuration>
+          <linkXRef>false</linkXRef>
+          <configLocation>src/build/checkstyle.xml</configLocation>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>aggregate</id>
+            <inherited>false</inherited>
+            <configuration>
+              <skipExec>true</skipExec>
+            </configuration>
+            <reports>
+              <report>checkstyle-aggregate</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>
