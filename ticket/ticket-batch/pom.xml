@@ -31,8 +31,31 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+
+    <!-- API validation of bean -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+    </dependency>
+    <!-- Impl validation -->
+    <dependency>
+      <groupId>org.apache.bval</groupId>
+      <artifactId>bval-jsr</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
     </dependency>
   </dependencies>
 
@@ -45,9 +68,30 @@
           <archive>
             <manifest>
               <mainClass>org.example.demo.batch.App</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix></classpathPrefix>
             </manifest>
           </archive>
         </configuration>
+      </plugin>
+      <!-- Assembly -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assembly/archive-deploy.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>assembly-archive-deploy</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

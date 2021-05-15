@@ -140,6 +140,12 @@
           <artifactId>maven-war-plugin</artifactId>
           <version>3.3.1</version>
         </plugin>
+        <!-- Assembly -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>3.3.0</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
