@@ -4,7 +4,7 @@ import com.sid.mcsbank.web.AccountRestJaxRSAPI;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class MyConfig extends ResourceConfig {
 
     /*
