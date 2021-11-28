@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import java.util.Date;
 
@@ -18,8 +19,10 @@ public class McsBankApplication {
     }
 
     @Bean
-    CommandLineRunner start (AccountRepository accountRepository) {
+    CommandLineRunner start (AccountRepository accountRepository, RepositoryRestConfiguration restConfiguration) {
         return args -> {
+            //Expose id
+            restConfiguration.exposeIdsFor(Account.class);
             accountRepository.save(new Account(null, Math.random()*9000, new Date(), AccountType.CURRENT));
             accountRepository.save(new Account(null, Math.random()*9000, new Date(), AccountType.SAVINGS));
             accountRepository.save(new Account(null, Math.random()*9000, new Date(), AccountType.CURRENT));
