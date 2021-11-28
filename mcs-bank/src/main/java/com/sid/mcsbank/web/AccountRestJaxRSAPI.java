@@ -9,6 +9,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+/*
+    1- create ws based on jax rs (jersey)
+    2- Deploy jersey using spring
+ */
+
 @Component
 @Path("/bank")
 public class AccountRestJaxRSAPI {

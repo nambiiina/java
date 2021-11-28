@@ -2,9 +2,11 @@ package com.sid.mcsbank;
 
 import com.sid.mcsbank.web.AccountRestJaxRSAPI;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter;
 
-//@Configuration
+@Configuration
 public class MyConfig extends ResourceConfig {
 
     /*
@@ -12,5 +14,15 @@ public class MyConfig extends ResourceConfig {
      */
     public MyConfig() {
         register(AccountRestJaxRSAPI.class);
+    }
+
+    /*
+        Deploy server jax ws (soap)
+     */
+    @Bean
+    SimpleJaxWsServiceExporter serviceExporter(){
+        SimpleJaxWsServiceExporter serviceExporter = new SimpleJaxWsServiceExporter();
+        serviceExporter.setBaseAddress("http://0.0.0.0:8989/");
+        return serviceExporter;
     }
 }
