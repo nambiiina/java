@@ -21,4 +21,6 @@ public class Account {
     @Enumerated(EnumType.STRING) //numeric type
     @Column(length = 10)
     private AccountType accountType;
+    @ManyToOne
+    private Client client;
 }
