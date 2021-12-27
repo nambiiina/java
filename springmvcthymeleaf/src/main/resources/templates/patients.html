@@ -22,6 +22,11 @@
                         <td th:text="${p.sick}"></td>
                     </tr>
                 </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page, status:${pages}">
+                        <a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" th:href="@{patients(page=${status.index})}" th:text="${status.index}"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
