@@ -27,6 +27,7 @@
                         <td th:text="${p.name}"></td>
                         <td th:text="${p.dateOfBirth}"></td>
                         <td th:text="${p.sick}"></td>
+                        <td><a class="btn btn-danger" th:href="@{deletePatient(id=${p.id}, keyword=${keyword}, page=${currentPage}, size=${size})}" onclick="return confirm('Etes vous sûre de vouloir supprimer?')">Delete</a></td>
                     </tr>
                 </table>
                 <ul class="nav nav-pills">
