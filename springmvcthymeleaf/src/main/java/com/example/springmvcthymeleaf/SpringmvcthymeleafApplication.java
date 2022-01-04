@@ -20,10 +20,10 @@ public class SpringmvcthymeleafApplication {
     @Bean
     public CommandLineRunner run(PatientRepository patientRepository) throws Exception {
         return (String[] args) -> {
-            patientRepository.save(new Patient(null, "Thierry", new Date(), false));
-            patientRepository.save(new Patient(null, "Nambinina", new Date(), false));
-            patientRepository.save(new Patient(null, "Ninah", new Date(), false));
-            patientRepository.save(new Patient(null, "Hasimino", new Date(), false));
+            patientRepository.save(new Patient(null, "Thierry", new Date(), false, 6));
+            patientRepository.save(new Patient(null, "Nambinina", new Date(), false, 46));
+            patientRepository.save(new Patient(null, "Ninah", new Date(), false, 35));
+            patientRepository.save(new Patient(null, "Hasimino", new Date(), false, 14));
             patientRepository.findAll().forEach(p -> System.out.println(p.getName()));
         };
     }
