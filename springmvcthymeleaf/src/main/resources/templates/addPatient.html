@@ -10,9 +10,14 @@
     <div class="container mt-5">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Form to add new patient</div>
+                <div class="card-header font-weight-bold" th:if="${mode == 'new'}">Form to add new patient</div>
+                <div class="card-header font-weight-bold" th:if="${mode == 'edit'}">Form to edit patient</div>
                 <div class="card-body">
                     <form th:action="@{savePatient}" method="post">
+                        <div class="form-group">
+                            <label class="control-label">ID : </label>
+                            <input type="hidden" name="id" class="form-control" th:value="${patient.id}">
+                        </div>
                         <div class="form-group">
                             <label class="control-label">Name : </label>
                             <input type="text" name="name" class="form-control" th:value="${patient.name}">
