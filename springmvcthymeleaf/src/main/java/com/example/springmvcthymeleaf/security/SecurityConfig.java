@@ -18,7 +18,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //        super.configure(http); // => Enable security
-        http.formLogin(); // => use form authentication
+        http.formLogin(); // => use form authentication by spring security
+//        http.httpBasic(); // => spring security ask to browser the request needs authentication
+        http.authorizeHttpRequests().antMatchers("/save**/**", "/delete**/**").hasRole("ADMIN");
         http
             .authorizeHttpRequests()
             .anyRequest()
