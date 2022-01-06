@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <!-- Brand -->
-        <a class="navbar-brand" th:href="@{patients}">Home</a>
+        <a class="navbar-brand" th:href="@{index}">Home</a>
 
         <!-- Links -->
         <ul class="navbar-nav">
@@ -18,16 +18,20 @@
                 <a class="nav-link" href="#">Medecins</a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{patients}">Patients</a>
+            </li>
+
             <!-- Dropdown -->
-            <li class="nav-item dropdown">
+            <!--<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="patientsdrop" data-toggle="dropdown">
                     Patients
                 </a>
                 <div class="dropdown-menu">
+                    <a class="dropdown-item" th:href="@{patients}">List</a>
                     <a class="dropdown-item" th:href="@{addPatient}">Add</a>
-                    <a class="dropdown-item" href="#">Search</a>
                 </div>
-            </li>
+            </li>-->
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
