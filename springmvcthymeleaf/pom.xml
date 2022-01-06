@@ -96,6 +96,12 @@
             <version>2.6.2</version>
         </dependency>
 
+        <!-- thymeleaf to communicate with spring security context -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <version>3.0.4.RELEASE</version>
+        </dependency>
 
 
     </dependencies>
