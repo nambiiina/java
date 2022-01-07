@@ -29,10 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin(); // => use form authentication by spring security
 //        http.httpBasic(); // => spring security ask to browser the request needs authentication
         http.authorizeHttpRequests().antMatchers("/save**/**", "/delete**/**", "/add**/**", "/edit**/**").hasRole("ADMIN");
-        http
-            .authorizeHttpRequests()
-            .anyRequest()
-            .authenticated();
+        http.authorizeHttpRequests().antMatchers("/patients**/**").hasRole("USER");
+//        http.authorizeHttpRequests().anyRequest().authenticated();
         http.csrf(); // => enable by default
         http.exceptionHandling().accessDeniedPage("/notAuthorized");
     }
