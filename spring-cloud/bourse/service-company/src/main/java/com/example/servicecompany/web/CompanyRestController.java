@@ -16,8 +16,8 @@ public class CompanyRestController {
     @Value("${admin}")
     private String admin;
 
-    @Value("${spring.cloud.discovery.enabled}")
-    private boolean springCloudDiscovery;
+    /*@Value("${spring.cloud.discovery.enabled}")
+    private boolean springCloudDiscovery;*/
 
     @LocalServerPort
     private int port;
@@ -26,7 +26,7 @@ public class CompanyRestController {
     public Map<String, Object> getConfig() {
         Map<String, Object> myConfig = new HashMap<>();
         myConfig.put("amdin", admin);
-        myConfig.put("spring.cloud.discovery.enabled", springCloudDiscovery);
+//        myConfig.put("spring.cloud.discovery.enabled", springCloudDiscovery);
         myConfig.put("threadName", Thread.currentThread().getName());
         myConfig.put("port", port);
         return myConfig;
