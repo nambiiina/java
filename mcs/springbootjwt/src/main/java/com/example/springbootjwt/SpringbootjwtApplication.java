@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -21,8 +22,9 @@ public class SpringbootjwtApplication {
     }
 
     @Bean
-    CommandLineRunner runner(StudentRepository studentRepository, TrainingRepository trainingRepository) {
+    CommandLineRunner runner(StudentRepository studentRepository, TrainingRepository trainingRepository, RepositoryRestConfiguration repositoryRestConfiguration) {
         return args -> {
+            repositoryRestConfiguration.exposeIdsFor(Training.class, Student.class);
             Training js = trainingRepository.save(new Training(null, "Javascript", Duration.ofHours(2L), null));
             Training java = trainingRepository.save(new Training(null, "Java", Duration.ofHours(2L), null));
             Training sql = trainingRepository.save(new Training(null, "Sql", Duration.ofHours(2L), null));
