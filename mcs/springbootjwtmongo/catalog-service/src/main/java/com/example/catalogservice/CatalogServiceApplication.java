@@ -22,16 +22,18 @@ public class CatalogServiceApplication {
     @Bean
     CommandLineRunner run(ProductRepository productRepository) {
         return args -> {
-            Category informatics = new Category("informatics", "high tech");
-            Category clothes = new Category("clothes", "mode design");
-            productRepository.save(new Product(null, "mouse", 25.6, informatics));
-            productRepository.save(new Product(null, "monitor", 126.3, informatics));
-            productRepository.save(new Product(null, "keyboard", 150.0, informatics));
-            productRepository.save(new Product(null, "speaker", 250.1, informatics));
-            productRepository.save(new Product(null, "shorts", 15.2, clothes));
-            productRepository.save(new Product(null, "t-shirt", 7.9, clothes));
-            productRepository.save(new Product(null, "pants", 19.5, clothes));
-            productRepository.save(new Product(null, "shirt", 6.7, clothes));
+            if (productRepository.findAll().size() <= 0) {
+                Category informatics = new Category("informatics", "high tech");
+                Category clothes = new Category("clothes", "mode design");
+                productRepository.save(new Product(null, "mouse", 25.6, informatics));
+                productRepository.save(new Product(null, "monitor", 126.3, informatics));
+                productRepository.save(new Product(null, "keyboard", 150.0, informatics));
+                productRepository.save(new Product(null, "speaker", 250.1, informatics));
+                productRepository.save(new Product(null, "shorts", 15.2, clothes));
+                productRepository.save(new Product(null, "t-shirt", 7.9, clothes));
+                productRepository.save(new Product(null, "pants", 19.5, clothes));
+                productRepository.save(new Product(null, "shirt", 6.7, clothes));
+            }
         };
     }
 
