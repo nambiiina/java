@@ -1,18 +1,17 @@
 package com.example.userservice;
 
 import com.example.userservice.entities.AppRole;
-import com.example.userservice.entities.AppUser;
-import com.example.userservice.repository.AppUserRepository;
 import com.example.userservice.service.AccountService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.stream.Stream;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = UserDetailsServiceAutoConfiguration.class)
 public class UserServiceApplication {
 
     @Bean
