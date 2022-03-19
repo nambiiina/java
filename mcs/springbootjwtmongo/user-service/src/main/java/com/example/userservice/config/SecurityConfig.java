@@ -1,6 +1,7 @@
 package com.example.userservice.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,7 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+//        super.configure(http);
+
+        http
+                .formLogin()
+                .and()
+                .authorizeHttpRequests()
+                    .antMatchers("/appUsers/**", "/appRoles/**").hasAnyAuthority("ADMIN")
+                    .anyRequest().authenticated();
     }
 
 }
