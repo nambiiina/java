@@ -1,5 +1,6 @@
 package com.example.userservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,11 @@ import java.util.Collection;
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     @Column(unique = true)
     private String username;
+    @JsonIgnore
     private String password;
     private Boolean active;
     @ManyToMany(fetch = FetchType.EAGER)

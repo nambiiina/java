@@ -1,5 +1,6 @@
 package com.example.userservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,6 @@ public class AppRole {
     @Column(unique = true)
     private String roleName;
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Collection<AppUser> users;
 }
