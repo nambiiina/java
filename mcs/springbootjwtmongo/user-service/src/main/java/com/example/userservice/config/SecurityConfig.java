@@ -1,11 +1,11 @@
 package com.example.userservice.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -30,12 +30,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //        super.configure(http);
 
+        /**
+         * statefull authentication
+         */
+
+//        http
+//                .formLogin()
+//                .and()
+//                .authorizeHttpRequests()
+//                    .antMatchers("/appUsers/**", "/appRoles/**").hasAnyAuthority("ADMIN")
+//                    .anyRequest().authenticated();
+
+
+        /**
+         * stateless authentication
+         */
         http
-                .formLogin()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
                     .antMatchers("/appUsers/**", "/appRoles/**").hasAnyAuthority("ADMIN")
-                    .anyRequest().authenticated();
+                    .anyRequest().authenticated()
+                    .and()
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()));
     }
 
 }
