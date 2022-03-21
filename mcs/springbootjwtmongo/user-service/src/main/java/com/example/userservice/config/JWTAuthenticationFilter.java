@@ -2,7 +2,7 @@ package com.example.userservice.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.userservice.entities.AppUser;
+import com.example.userservice.entities.UserTryingToAuthenticate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,8 +33,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
          * Get username and password of user to try to authenticate
          */
         try {
-            AppUser UserTryingToAuthenticate = new ObjectMapper().readValue(request.getInputStream(), AppUser.class);
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(UserTryingToAuthenticate.getUsername(), UserTryingToAuthenticate.getPassword()));
+            UserTryingToAuthenticate userTryingToAuthenticate = new ObjectMapper().readValue(request.getInputStream(), UserTryingToAuthenticate.class);
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userTryingToAuthenticate.getUsername(), userTryingToAuthenticate.getPassword()));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
