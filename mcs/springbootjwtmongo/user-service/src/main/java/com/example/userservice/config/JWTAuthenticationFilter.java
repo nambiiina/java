@@ -29,11 +29,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        /**
-         * Get username and password of user to try to authenticate
-         */
         try {
+            // Get username and password from request
             UserTryingToAuthenticate userTryingToAuthenticate = new ObjectMapper().readValue(request.getInputStream(), UserTryingToAuthenticate.class);
+            // Try to authenticate user using custom UserDetailsService and BCryptPasswordEncoder
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userTryingToAuthenticate.getUsername(), userTryingToAuthenticate.getPassword()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,15 +49,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
          *  - payload
          *  - signature
          */
+        // Get user authenticated
         User authenticatedUser = (User) authResult.getPrincipal();
         List<String> roles = new ArrayList<>();
         authenticatedUser.getAuthorities().forEach(grantedAuthority -> roles.add(grantedAuthority.getAuthority()));
+        // Sign and generate jwt
         String jwt = JWT.create()
                 .withIssuer(request.getRequestURI())
                 .withSubject(authenticatedUser.getUsername())
                 .withArrayClaim("roles", roles.toArray(new String[roles.size()]))
-                .withExpiresAt(new Date(System.currentTimeMillis()+10*24*3600))
-                .sign(Algorithm.HMAC256("rthierrynambinina@gmail.com"));
-        response.addHeader("Authorization", "Bearer " + jwt);
+                .withExpiresAt(new Date(System.currentTimeMillis()+SecurityParams.EXPIRATION))
+                .sign(Algorithm.HMAC256(SecurityParams.SECRET));
+        //Add Authorization header with content jwt
+        response.addHeader(SecurityParams.JWT_HEADER_NAME, SecurityParams.TOKEN_PREFIX + jwt);
     }
 }
