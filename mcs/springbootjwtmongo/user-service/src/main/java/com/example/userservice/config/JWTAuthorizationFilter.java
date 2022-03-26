@@ -23,36 +23,49 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // Get Authorization
-        String auth = request.getHeader(SecurityParams.JWT_HEADER_NAME);
-        // Verify if authorization is presents in header request
-        if (auth == null || !auth.startsWith(SecurityParams.TOKEN_PREFIX)) {
+        // CORS
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-Width, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
+        response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
+        if (request.getMethod().equals("OPTIONS")) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else if (request.getRequestURI().equals("/login")) {
             filterChain.doFilter(request, response);
             return;
         }
-        //Get token
-        String token = auth.split(" ")[1];
-        System.out.println(token);
-        //Create token verifier
-        Algorithm algorithm = Algorithm.HMAC256(SecurityParams.SECRET);
-        JWTVerifier verifier = JWT.require(algorithm)
+        else {
+            // Get Authorization
+            String auth = request.getHeader(SecurityParams.JWT_HEADER_NAME);
+            // Verify if authorization is presents in header request
+            if (auth == null || !auth.startsWith(SecurityParams.TOKEN_PREFIX)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+            //Get token
+            String token = auth.split(" ")[1];
+//            System.out.println(token);
+            //Create token verifier
+            Algorithm algorithm = Algorithm.HMAC256(SecurityParams.SECRET);
+            JWTVerifier verifier = JWT.require(algorithm)
 //                .withIssuer("oauth")
-                .build();
-        //Verify token
-        DecodedJWT verify = verifier.verify(token);
-        //Decode token
-        DecodedJWT decodedJWT = JWT.decode(token);
-        String username = decodedJWT.getSubject();
-        System.out.println(username);
-        List<String> roles = decodedJWT.getClaims().get("roles").asList(String.class);
-        System.out.println(roles);
-        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
+                    .build();
+            //Verify token
+            DecodedJWT verify = verifier.verify(token);
+            //Decode token
+            DecodedJWT decodedJWT = JWT.decode(token);
+            String username = decodedJWT.getSubject();
+//            System.out.println(username);
+            List<String> roles = decodedJWT.getClaims().get("roles").asList(String.class);
+//            System.out.println(roles);
+            Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+            for (String role : roles) {
+                authorities.add(new SimpleGrantedAuthority(role));
+            }
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
+            //Authenticate the user
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            filterChain.doFilter(request, response);
         }
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
-        //Authenticate the user
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        filterChain.doFilter(request, response);
     }
 }
