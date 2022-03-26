@@ -31,24 +31,26 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             return;
         }
         //Get token
-        String token = auth.substring(SecurityParams.TOKEN_PREFIX.length());
+        String token = auth.split(" ")[1];
+        System.out.println(token);
         //Create token verifier
         Algorithm algorithm = Algorithm.HMAC256(SecurityParams.SECRET);
         JWTVerifier verifier = JWT.require(algorithm)
-//                .withIssuer("auth0")
+//                .withIssuer("oauth")
                 .build();
         //Verify token
         DecodedJWT verify = verifier.verify(token);
         //Decode token
         DecodedJWT decodedJWT = JWT.decode(token);
         String username = decodedJWT.getSubject();
+        System.out.println(username);
         List<String> roles = decodedJWT.getClaims().get("roles").asList(String.class);
         System.out.println(roles);
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         for (String role : roles) {
             authorities.add(new SimpleGrantedAuthority(role));
         }
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, authorities);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
         //Authenticate the user
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);

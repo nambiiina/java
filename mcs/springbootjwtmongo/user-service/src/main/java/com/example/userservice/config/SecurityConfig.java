@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeHttpRequests()
                     .antMatchers("/login/**", "/register/**").permitAll()
-                    .antMatchers("/appUsers/**", "/appRoles/**").hasAnyAuthority("ADMIN")
+                    .antMatchers("/appUsers/**", "/appRoles/**").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
