@@ -36,14 +36,14 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         }
         else {
             // Get Authorization
-            String auth = request.getHeader(SecurityParams.JWT_HEADER_NAME);
+            String jwt = request.getHeader(SecurityParams.JWT_HEADER_NAME);
             // Verify if authorization is presents in header request
-            if (auth == null || !auth.startsWith(SecurityParams.TOKEN_PREFIX)) {
+            if (jwt == null || !jwt.startsWith(SecurityParams.TOKEN_PREFIX)) {
                 filterChain.doFilter(request, response);
                 return;
             }
             //Get token
-            String token = auth.split(" ")[1];
+            String token = jwt.substring(SecurityParams.TOKEN_PREFIX.length());
 //            System.out.println(token);
             //Create token verifier
             Algorithm algorithm = Algorithm.HMAC256(SecurityParams.SECRET);
