@@ -9,11 +9,23 @@ import org.springframework.context.annotation.Configuration;
 public class RouteLocatorConf {
     @Bean
     public RouteLocator staticRouteLocator(RouteLocatorBuilder builder) {
+        /**
+         * Static route
+         */
+//        return builder.routes()
+//                .route("r1", r -> r.path("/customers/**")
+//                    .uri("http://localhost:8081"))
+//                .route("r2", r -> r.path("/products/**")
+//                    .uri("http://localhost:8082"))
+//                .build();
+        /**
+         * lb Static route
+         */
         return builder.routes()
                 .route("r1", r -> r.path("/customers/**")
-                    .uri("http://localhost:8081"))
+                    .uri("lb://CUSTOMER-SERVICE"))
                 .route("r2", r -> r.path("/products/**")
-                    .uri("http://localhost:8082"))
+                    .uri("lb://INVENTORY-SERVICE"))
                 .build();
     }
 }
