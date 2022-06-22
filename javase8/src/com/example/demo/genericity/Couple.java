@@ -1,9 +1,10 @@
 package com.example.demo.genericity;
 
-public class Couple<T> {
-    private T first, second;
+public class Couple<T, U> {
+    private T first;
+    private U second;
 
-    public Couple(T first, T second) {
+    public Couple(T first, U second) {
         this.first = first;
         this.second = second;
     }
@@ -14,5 +15,9 @@ public class Couple<T> {
 
     public T getFirst() {
         return first;
+    }
+
+    public U getSecond() {
+        return second;
     }
 }
