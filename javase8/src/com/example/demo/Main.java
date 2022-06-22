@@ -3,11 +3,19 @@ package com.example.demo;
 import com.example.demo.genericity.Couple;
 
 public class Main {
+
+    static <T> T hasard (T[] values) {
+        int n = values.length;
+        if (n == 0) return null;
+        int i = (int) (n * Math.random());
+        return values[i];
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello Java SE 8 !!!");
 
         /**
-         * Genericty
+         * Generic class
          */
         Integer i1 = 3;
         Integer i2 = 7;
@@ -18,22 +26,22 @@ public class Main {
         cd.show();
         Double p = cd.getFirst();
         System.out.println("First element of couple cd = " + p);
+
+        /**
+         * Generic method
+         */
+        Integer[] tabi = {1, 5, 4, 9};
+        System.out.println("hasard sur tabi = " + hasard(tabi));
+        String[] tabs = {"bonjour", "salut", "hello"};
+        System.out.println("hasard sur tabs = " + hasard(tabs));
+
+        Test<Integer> test = new Test<>();
+        test.f(1);
     }
 }
 
 class Test<T> {
-    private T first, second;
-
-    public Test(T first, T second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    public void show() {
-        System.out.println("first value : " + first + " - second value : " + second);
-    }
-
-    public T getFirst() {
-        return first;
+    public <U> void f(U u) {
+        System.out.println("Value of parameter : " + u);
     }
 }
