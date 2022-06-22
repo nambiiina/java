@@ -1,15 +1,9 @@
 package com.example.demo;
 
 import com.example.demo.genericity.Couple;
+import com.example.demo.genericity.MethodGen;
 
 public class Main {
-
-    static <T> T hasard (T[] values) {
-        int n = values.length;
-        if (n == 0) return null;
-        int i = (int) (n * Math.random());
-        return values[i];
-    }
 
     public static void main(String[] args) {
         System.out.println("Hello Java SE 8 !!!");
@@ -28,15 +22,30 @@ public class Main {
         System.out.println("First element of couple cd = " + p);
 
         /**
-         * Generic method
+         * Generic method with one argument
          */
         Integer[] tabi = {1, 5, 4, 9};
-        System.out.println("hasard sur tabi = " + hasard(tabi));
+        System.out.println("hasard sur tabi = " + MethodGen.hasard(tabi));
         String[] tabs = {"bonjour", "salut", "hello"};
-        System.out.println("hasard sur tabs = " + hasard(tabs));
+        System.out.println("hasard sur tabs = " + MethodGen.hasard(tabs));
 
-        Test<Integer> test = new Test<>();
-        test.f(1);
+        /**
+         * Generic method with two arguments
+         */
+        Integer n1 = 2;
+        Integer n2 = 5;
+
+        System.out.println("hasard (n1, n2) : " + MethodGen.hasard(n1, n2));
+
+        Double x1 = 2.5;
+        System.out.println("hasard (n1, x1) : " + MethodGen.hasard(n1, x1)); // erasure (n1 = n2 = Object)
+
+        // Forcera le compilateur à vérifier que les arguments (n1 et x1) sont bien d'un type compatible avec Double
+        //MethodGen.<Double>hasard(n1, x1); // compilation error
+
+        // (n1 et x1) sont d'un type compatible avec Number
+        System.out.println("hasard (n1, x1) with type verification : " + MethodGen.<Number>hasard(n1, x1)); // worked
+
     }
 }
 
