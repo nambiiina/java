@@ -1,0 +1,24 @@
+version: '3'
+services:  
+  postgres-server:
+    image: postgres:9.6
+    environment:
+      POSTGRES_DB: "keresud"
+      POSTGRES_PASSWORD: "postgresPassword"
+    ports:
+      - "35021:5432"
+    networks:
+      default:
+        aliases:
+          - postgres
+  pgadmin:
+    image: dpage/pgadmin4:4.10
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "pgAdminUser"
+      PGADMIN_DEFAULT_PASSWORD: "pgAdminPassword"
+    ports:
+      - "35022:80"
+    networks:
+      default:
+        aliases:
+          - pgadmin
