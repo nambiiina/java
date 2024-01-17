@@ -21,21 +21,25 @@ public class TestApplication {
 	@Bean
 	CommandLineRunner setup(PostRepository postRepository, CommentRepository commentRepository) {
 		return args -> {
-//			Post post = Post.builder().title("Post 1").description("Post 1 description").content("Post 1 content").comments(new HashSet<>()).build();
-			Post post = new Post();
-			post.setTitle("Post 1");
-			post.setDescription("Post 1 description");
-			post.setContent("Post 1 content");
+			Post post = Post.builder()
+					.title("Post 1")
+					.description("Post 1 description")
+					.content("Post 1 content")
+					.comments(new HashSet<>())
+					.build();
 
 
-//			Comment comment1 = new Comment(null, "Great Post!", null);
-			Comment comment1 = new Comment();
-			comment1.setText("Great Post!");
-			comment1.setPost(post);
-//			Comment comment2 = new Comment(null, "Really helpful Post, Thanks a lot", null);
-			Comment comment2 = new Comment();
-			comment2.setText("Really helpful Post, Thanks a lot");
-			comment2.setPost(post);
+			Comment comment1 = Comment.builder()
+					.text("Great Post!")
+					.post(post)
+					.build();
+//			comment1.setPost(post);
+
+			Comment comment2 = Comment.builder()
+					.text("Really helpful Post, Thanks a lot")
+					.post(post)
+					.build();
+//			comment2.setPost(post);
 
 			post.getComments().add(comment1);
 			post.getComments().add(comment2);

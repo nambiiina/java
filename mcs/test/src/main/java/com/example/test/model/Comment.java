@@ -5,7 +5,7 @@ import lombok.*;
 
 @Entity
 @Getter @Setter
-//@NoArgsConstructor @AllArgsConstructor @Builder
+@NoArgsConstructor @AllArgsConstructor @Builder
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class Comment {
     @Lob
     private String text;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
+    //    Default -> fetch = FetchType.EAGER
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
