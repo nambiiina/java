@@ -1,5 +1,6 @@
 package com.example.test.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,5 +25,6 @@ public class Post {
 
 //    Default -> fetch = FetchType.LAZY
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @JsonIgnore
     private Set<Comment> comments = new HashSet<>();
 }

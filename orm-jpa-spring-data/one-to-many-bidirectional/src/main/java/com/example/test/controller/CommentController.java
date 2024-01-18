@@ -18,8 +18,7 @@ public class CommentController {
     private CommentRepository commentRepository;
 
     @GetMapping("/posts/{postId}")
-    public int getAllCommentsByPostId(@PathVariable (value = "postId") Long postId, Pageable pageable) {
-        Page<Comment> comments = commentRepository.findByPostId(postId, pageable);
-        return comments.getSize();
+    public Page<Comment> getAllCommentsByPostId(@PathVariable (value = "postId") Long postId, Pageable pageable) {
+        return commentRepository.findByPostId(postId, pageable);
     }
 }
