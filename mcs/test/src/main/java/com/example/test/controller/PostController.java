@@ -5,11 +5,11 @@ import com.example.test.model.Post;
 import com.example.test.model.dto.PostDto;
 import com.example.test.repository.PostRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,15 +18,21 @@ import java.util.Set;
 @AllArgsConstructor
 public class PostController {
     private PostRepository postRepository;
+
+    @GetMapping
+    public List<Post> getAll() {
+        return postRepository.findAll();
+    }
+
     @GetMapping("/{postId}")
     public Post findById(@PathVariable Long postId) {
         Optional<Post> post = postRepository.findById(postId);
-        Set<Comment> comments = post.get().getComments();
         return post.get();
-        /*if (post.isPresent()) {
-            Set<Comment> comments = post.get().getComments();
-            return PostDto.builder().title(post.get().getTitle()).build();
-        }
-        return null;*/
+    }
+
+    @PostMapping
+    public ResponseEntity<Post> create(@RequestBody Post requestPost) {
+        Post post = postRepository.save(requestPost);
+        return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 }

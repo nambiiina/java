@@ -18,7 +18,7 @@ public class TestApplication {
 		SpringApplication.run(TestApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	CommandLineRunner setup(PostRepository postRepository, CommentRepository commentRepository) {
 		return args -> {
 			Post post = Post.builder()
@@ -46,5 +46,5 @@ public class TestApplication {
 
 			postRepository.save(post);
 		};
-	}
+	}*/
 }
