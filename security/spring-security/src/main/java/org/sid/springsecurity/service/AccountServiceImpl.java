@@ -46,4 +46,9 @@ public class AccountServiceImpl implements AccountService {
     public List<AppUser> getListUsers() {
         return appUserRepository.findAll();
     }
+
+    @Override
+    public List<AppRole> getListRoles() {
+        return appRoleRepository.findAll();
+    }
 }

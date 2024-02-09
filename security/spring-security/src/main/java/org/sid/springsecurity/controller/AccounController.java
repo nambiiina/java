@@ -27,6 +27,11 @@ public class AccounController {
         return accountService.addNewUser(newAppUser);
     }
 
+    @GetMapping("/roles")
+    public List<AppRole> getAllRoles() {
+        return accountService.getListRoles();
+    }
+
     @PostMapping("/roles")
     public AppRole saveRole(@RequestBody AppRole newAppRole) {
         return accountService.addNewRole(newAppRole);

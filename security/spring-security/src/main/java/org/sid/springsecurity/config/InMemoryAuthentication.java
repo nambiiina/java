@@ -43,8 +43,20 @@ public class InMemoryAuthentication {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        // Use form login
+        // Custom user form login
+//        httpSecurity.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+//                .loginPage("/login").permitAll());
+        // Native user form login
         httpSecurity.formLogin(Customizer.withDefaults());
+        // Remember me
+        httpSecurity.rememberMe(Customizer.withDefaults());
+        // Secure location
+        httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
+                .requestMatchers("/h2-console").permitAll()
+                .requestMatchers("/api/accounts/users/**").hasRole("USER")
+                .requestMatchers("/api/accounts/roles/**").hasRole("ADMIN"));
+        // Redirect to not authorize page
+        httpSecurity.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.accessDeniedPage("/notAuthorized"));
         // Need authentication
         httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                 .anyRequest().authenticated());
