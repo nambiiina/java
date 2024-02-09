@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class SpringSecurityApplication {
@@ -39,5 +41,14 @@ public class SpringSecurityApplication {
 			accountService.addRoleToUser("user4", "USER");
 			accountService.addRoleToUser("user2", "BILLS_MANAGER");
 		};
+	}
+
+	/**
+	 * Create bean PasswordEncoder => Spring security encode password automatically
+	 * @return PasswordEncoder
+	 */
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }
