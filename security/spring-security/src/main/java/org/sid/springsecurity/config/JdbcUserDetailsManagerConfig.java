@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
-public class JdbcAuthentication {
+public class JdbcUserDetailsManagerConfig {
 
     /**
      * Create user using JdbcUserDetailManager.

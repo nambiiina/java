@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 //@Configuration
 //@AllArgsConstructor
 //@EnableMethodSecurity(prePostEnabled = true)
-public class InMemoryAuthentication {
+public class InMemoryUserDetailsManagerConfig {
 
     private PasswordEncoder passwordEncoder;
 
