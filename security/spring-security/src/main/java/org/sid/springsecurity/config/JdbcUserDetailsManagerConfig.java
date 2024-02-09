@@ -10,8 +10,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
-@Configuration
-@EnableMethodSecurity(prePostEnabled = true)
+//@Configuration
+//@EnableMethodSecurity(prePostEnabled = true)
 public class JdbcUserDetailsManagerConfig {
 
     /**

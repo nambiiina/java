@@ -19,7 +19,7 @@ public class SpringSecurityApplication {
 		SpringApplication.run(SpringSecurityApplication.class, args);
 	}
 
-//	@Bean
+	@Bean
 	CommandLineRunner initUserInMemory(AccountService accountService) {
 		return args -> {
 			accountService.addNewRole(AppRole.builder().roleName("USER").build());
@@ -45,7 +45,7 @@ public class SpringSecurityApplication {
 		};
 	}
 
-	@Bean
+//	@Bean
 	CommandLineRunner initUserInMysql(JdbcUserDetailsManager jdbcUserDetailsManager) {
 		PasswordEncoder passwordEncoder = passwordEncoder();
 		return args -> {
