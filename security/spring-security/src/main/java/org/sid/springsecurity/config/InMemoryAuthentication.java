@@ -12,15 +12,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@AllArgsConstructor
-@EnableMethodSecurity(prePostEnabled = true)
+//@Configuration
+//@AllArgsConstructor
+//@EnableMethodSecurity(prePostEnabled = true)
 public class InMemoryAuthentication {
 
     private PasswordEncoder passwordEncoder;
 
     /**
-     * Create in memmory user fot authentication
+     * Create in memmory user for authentication
      * @return InMemoryUserDetailsManager
      */
     @Bean
@@ -49,7 +49,7 @@ public class InMemoryAuthentication {
 //        httpSecurity.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
 //                .loginPage("/login").permitAll());
         // Native user form login
-        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.defaultSuccessUrl("/"));
         // Remember me
         httpSecurity.rememberMe(Customizer.withDefaults());
         // Secure location

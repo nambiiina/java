@@ -7,8 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 @SpringBootApplication
 public class SpringSecurityApplication {
@@ -17,8 +19,8 @@ public class SpringSecurityApplication {
 		SpringApplication.run(SpringSecurityApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner start(AccountService accountService) {
+//	@Bean
+	CommandLineRunner initUserInMemory(AccountService accountService) {
 		return args -> {
 			accountService.addNewRole(AppRole.builder().roleName("USER").build());
 			accountService.addNewRole(AppRole.builder().roleName("ADMIN").build());
@@ -40,6 +42,32 @@ public class SpringSecurityApplication {
 			accountService.addRoleToUser("user3", "USER");
 			accountService.addRoleToUser("user4", "USER");
 			accountService.addRoleToUser("user2", "BILLS_MANAGER");
+		};
+	}
+
+	@Bean
+	CommandLineRunner initUserInMysql(JdbcUserDetailsManager jdbcUserDetailsManager) {
+		PasswordEncoder passwordEncoder = passwordEncoder();
+		return args -> {
+			if (!jdbcUserDetailsManager.userExists("user11")) {
+				jdbcUserDetailsManager.createUser(User
+						.withUsername("user11")
+						.password(passwordEncoder.encode("1234"))
+						.roles("USER")
+						.build());
+				jdbcUserDetailsManager.createUser(User
+						.withUsername("user22")
+						.password(passwordEncoder.encode("1234"))
+						.roles("USER")
+						.build()
+				);
+				jdbcUserDetailsManager.createUser(User
+						.withUsername("admin2")
+						.password(passwordEncoder.encode("1234"))
+						.roles("USER", "ADMIN")
+						.build()
+				);
+			}
 		};
 	}
 
