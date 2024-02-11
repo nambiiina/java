@@ -9,9 +9,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableMethodSecurity
-@AllArgsConstructor
+//@Configuration
+//@EnableMethodSecurity
+//@AllArgsConstructor
 public class UserDetailsServiceStatFulConfig {
 
     private UserDetailsServiceImpl userDetailsServiceImpl;

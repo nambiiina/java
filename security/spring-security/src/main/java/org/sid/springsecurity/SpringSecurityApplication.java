@@ -22,28 +22,26 @@ public class SpringSecurityApplication {
 	@Bean
 	CommandLineRunner initUserInMemory(AccountService accountService) {
 		return args -> {
-			if (accountService.getListUsers().isEmpty()) {
-				accountService.addNewRole(AppRole.builder().roleName("USER").build());
-				accountService.addNewRole(AppRole.builder().roleName("ADMIN").build());
-				accountService.addNewRole(AppRole.builder().roleName("CUSTOMER_MANAGER").build());
-				accountService.addNewRole(AppRole.builder().roleName("PRODUCT_MANAGER").build());
-				accountService.addNewRole(AppRole.builder().roleName("BILLS_MANAGER").build());
+			accountService.addNewRole(AppRole.builder().roleName("USER").build());
+			accountService.addNewRole(AppRole.builder().roleName("ADMIN").build());
+			accountService.addNewRole(AppRole.builder().roleName("CUSTOMER_MANAGER").build());
+			accountService.addNewRole(AppRole.builder().roleName("PRODUCT_MANAGER").build());
+			accountService.addNewRole(AppRole.builder().roleName("BILLS_MANAGER").build());
 
-				accountService.addNewUser(AppUser.builder().username("user1").password("1234").build());
-				accountService.addNewUser(AppUser.builder().username("admin").password("admin").build());
-				accountService.addNewUser(AppUser.builder().username("user2").password("1234").build());
-				accountService.addNewUser(AppUser.builder().username("user3").password("1234").build());
-				accountService.addNewUser(AppUser.builder().username("user4").password("1234").build());
+			accountService.addNewUser(AppUser.builder().username("user1").password("1234").build());
+			accountService.addNewUser(AppUser.builder().username("admin").password("admin").build());
+			accountService.addNewUser(AppUser.builder().username("user2").password("1234").build());
+			accountService.addNewUser(AppUser.builder().username("user3").password("1234").build());
+			accountService.addNewUser(AppUser.builder().username("user4").password("1234").build());
 
-				accountService.addRoleToUser("user1", "USER");
-				accountService.addRoleToUser("admin", "USER");
-				accountService.addRoleToUser("admin", "ADMIN");
-				accountService.addRoleToUser("user2", "USER");
-				accountService.addRoleToUser("user2", "CUSTOMER_MANAGER");
-				accountService.addRoleToUser("user3", "USER");
-				accountService.addRoleToUser("user4", "USER");
-				accountService.addRoleToUser("user2", "BILLS_MANAGER");
-			}
+			accountService.addRoleToUser("user1", "USER");
+			accountService.addRoleToUser("admin", "USER");
+			accountService.addRoleToUser("admin", "ADMIN");
+			accountService.addRoleToUser("user2", "USER");
+			accountService.addRoleToUser("user2", "CUSTOMER_MANAGER");
+			accountService.addRoleToUser("user3", "USER");
+			accountService.addRoleToUser("user4", "USER");
+			accountService.addRoleToUser("user2", "BILLS_MANAGER");
 		};
 	}
 
@@ -81,4 +79,5 @@ public class SpringSecurityApplication {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 }
