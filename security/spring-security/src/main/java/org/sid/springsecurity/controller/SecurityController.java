@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SecurityController {
 
     @GetMapping("/authenticatedUser")
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Authentication authentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
