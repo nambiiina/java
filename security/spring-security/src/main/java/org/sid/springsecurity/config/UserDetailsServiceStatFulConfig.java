@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity
 @AllArgsConstructor
-public class UserDetailsServiceConfig {
+public class UserDetailsServiceStatFulConfig {
 
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
