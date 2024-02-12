@@ -2,6 +2,7 @@ package org.sid.springsecurity.config;
 
 import lombok.AllArgsConstructor;
 import org.sid.springsecurity.config.filter.JwtAuthenticationFilter;
+import org.sid.springsecurity.config.filter.JwtAuthorizationFilter;
 import org.sid.springsecurity.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -42,7 +44,8 @@ public class UserDetailsServiceStateLessConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated())
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(userDetailsServiceImpl, passwordEncoder)));
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(userDetailsServiceImpl, passwordEncoder)))
+                .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
