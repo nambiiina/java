@@ -40,11 +40,13 @@ public class UserDetailsServiceStateLessConfig {
                 // Disable frames security
                 .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
-                // Authentication required
+                // Authentication required or not
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
-                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/h2-console/**", "/refreshToken/**").permitAll()
                         .anyRequest().authenticated())
+                // Filter to authenticate user
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(userDetailsServiceImpl, passwordEncoder)))
+                // Filter to check user authorization
                 .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }

@@ -7,7 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Value;
+import org.sid.springsecurity.common.JWTUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,8 +24,6 @@ import java.util.stream.Collectors;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
-    @Value("${jwt.secret}")
-    private String jwtSecret;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -42,17 +40,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User authenticatedUser = (User) authResult.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("mySecret");
+        Algorithm algorithm = Algorithm.HMAC256(JWTUtil.SECRET);
         String jwtAccessToken = JWT.create()
                 .withSubject(authenticatedUser.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 5*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + JWTUtil.EXPIRE_ACCESS_TOKEN))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", authenticatedUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
 
         String jwtRefreshToken = JWT.create()
                 .withSubject(authenticatedUser.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 15*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + JWTUtil.EXPIRE_REFRESH_TOKEN))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
 
