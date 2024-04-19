@@ -42,6 +42,9 @@ class CustomerRepositoryTest {
                 .build());
     }
 
+    /**
+     * Method under test: {@link CustomerRepository#findByEmail(String)}
+     */
     @Test
     public void shouldFindCustomerByEmail() {
         // GIVEN
@@ -54,6 +57,9 @@ class CustomerRepositoryTest {
         assertThat(result).isPresent();
     }
 
+    /**
+     * Method under test: {@link CustomerRepository#findByEmail(String)}
+     */
     @Test
     public void shouldNotFindCustomerByEmail() {
         // GIVEN
@@ -66,6 +72,9 @@ class CustomerRepositoryTest {
         assertThat(result).isEmpty();
     }
 
+    /**
+     * Method under test: {@link CustomerRepository#findByFirstNameContainsIgnoreCase(String)}
+     */
     @Test
     public void shouldFindCustomersByFirstName() {
         // GIVEN
