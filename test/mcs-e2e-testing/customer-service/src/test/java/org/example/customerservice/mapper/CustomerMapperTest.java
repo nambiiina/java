@@ -12,6 +12,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class CustomerMapperTest {
     CustomerMapper underTest = new CustomerMapper();
+
+    /**
+     * Method under test: {@link CustomerMapper#fromCustomer(Customer)}
+     */
     @Test
     public void shouldMapCustomerToCustomerDTO() {
         // GIVEN
@@ -36,6 +40,9 @@ class CustomerMapperTest {
         assertThat(result).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    /**
+     * Method under test: {@link CustomerMapper#fromCustomerDTO(CustomerDTO)}
+     */
     @Test
     public void shouldMapCustomerDTOToCustomer() {
         // GIVEN
@@ -60,6 +67,9 @@ class CustomerMapperTest {
         assertThat(result).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    /**
+     * Methode under test: {@link CustomerMapper#fromListCustomers(List)}
+     */
     @Test
     public void shouldMapListOfCustomersToListOfCustomerDTOs() {
         // GIVEN
