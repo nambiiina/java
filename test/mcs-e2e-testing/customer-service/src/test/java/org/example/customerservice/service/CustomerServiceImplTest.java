@@ -37,6 +37,9 @@ class CustomerServiceImplTest {
     @InjectMocks
     private CustomerServiceImpl underTest;
 
+    /**
+     * Method under test: {@link CustomerServiceImpl#save(CustomerDTO)}
+     */
     @Test
     public void shouldSaveNewCustomer() {
         // GIVEN
@@ -58,6 +61,9 @@ class CustomerServiceImplTest {
         assertThat(result).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    /**
+     * Methode under test: {@link CustomerServiceImpl#save(CustomerDTO)}
+     */
     @Test
     public void shouldNotSaveNewCustomerWhenEmailExist() {
         // GIVEN
@@ -71,6 +77,9 @@ class CustomerServiceImplTest {
         assertThatThrownBy(() -> underTest.save(customerDTO)).isInstanceOf(EmailAlreadyExistException.class);
     }
 
+    /**
+     * Method under test: {@link CustomerServiceImpl#findAll()}
+     */
     @Test
     public void shouldGetAllCustomers() {
         // GIVEN
@@ -93,6 +102,9 @@ class CustomerServiceImplTest {
         assertThat(result).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    /**
+     * Method under test: {@link CustomerServiceImpl#findById(Long)}
+     */
     @Test
     public void shouldFindCustomerById() {
         // GIVEN
@@ -110,6 +122,9 @@ class CustomerServiceImplTest {
         assertThat(result).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    /**
+     * Method under test: {@link CustomerServiceImpl#findById(Long)}
+     */
     @Test
     public void shouldNotFindCustomerById() {
         // GIVEN
@@ -124,6 +139,9 @@ class CustomerServiceImplTest {
                 .hasMessage(null);
     }
 
+    /**
+     * Methode under test: {@link CustomerServiceImpl#search(String)}
+     */
     @Test
     public void shouldSearchCustomer() {
         // GIVEN
@@ -147,6 +165,9 @@ class CustomerServiceImplTest {
         assertThat(result).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    /**
+     * Methode under test: {@link CustomerServiceImpl#update(Long, CustomerDTO)}
+     */
     @Test
     public void shouldUpdateCustomer() {
         // GIVEN
@@ -169,6 +190,9 @@ class CustomerServiceImplTest {
         assertThat(result).usingRecursiveComparison().isEqualTo(expected);
     }
 
+    /**
+     * Methode under test: {@link CustomerServiceImpl#update(Long, CustomerDTO)}
+     */
     @Test
     public void shouldNotUpdateCustomerWhenCustomerNotExist() {
         // GIVEN
@@ -182,6 +206,9 @@ class CustomerServiceImplTest {
         assertThatThrownBy(() -> underTest.update(customerId, customerDTO)).isInstanceOf(CustomerNotFoundException.class);
     }
 
+    /**
+     * Method under test: {@link CustomerServiceImpl#delete(Long)}
+     */
     @Test
     public void shouldDeleteCustomer() {
         // GIVEN
@@ -197,6 +224,9 @@ class CustomerServiceImplTest {
         Mockito.verify(customerRepository).deleteById(customerId);
     }
 
+    /**
+     * Methode under test: {@link CustomerServiceImpl#delete(Long)}
+     */
     @Test
     public void shouldNotDeleteCustomerIfNotExist() {
         // GIVEN
