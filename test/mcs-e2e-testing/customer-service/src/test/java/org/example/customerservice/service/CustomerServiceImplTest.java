@@ -62,7 +62,7 @@ class CustomerServiceImplTest {
     }
 
     /**
-     * Methode under test: {@link CustomerServiceImpl#save(CustomerDTO)}
+     * Method under test: {@link CustomerServiceImpl#save(CustomerDTO)}
      */
     @Test
     public void shouldNotSaveNewCustomerWhenEmailExist() {
@@ -140,7 +140,7 @@ class CustomerServiceImplTest {
     }
 
     /**
-     * Methode under test: {@link CustomerServiceImpl#search(String)}
+     * Method under test: {@link CustomerServiceImpl#search(String)}
      */
     @Test
     public void shouldSearchCustomer() {
@@ -166,7 +166,7 @@ class CustomerServiceImplTest {
     }
 
     /**
-     * Methode under test: {@link CustomerServiceImpl#update(Long, CustomerDTO)}
+     * Method under test: {@link CustomerServiceImpl#update(Long, CustomerDTO)}
      */
     @Test
     public void shouldUpdateCustomer() {
@@ -191,7 +191,7 @@ class CustomerServiceImplTest {
     }
 
     /**
-     * Methode under test: {@link CustomerServiceImpl#update(Long, CustomerDTO)}
+     * Method under test: {@link CustomerServiceImpl#update(Long, CustomerDTO)}
      */
     @Test
     public void shouldNotUpdateCustomerWhenCustomerNotExist() {
@@ -225,7 +225,7 @@ class CustomerServiceImplTest {
     }
 
     /**
-     * Methode under test: {@link CustomerServiceImpl#delete(Long)}
+     * Method under test: {@link CustomerServiceImpl#delete(Long)}
      */
     @Test
     public void shouldNotDeleteCustomerIfNotExist() {
