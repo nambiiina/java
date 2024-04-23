@@ -48,13 +48,19 @@ class CustomerRepositoryTest {
     @Test
     public void shouldFindCustomerByEmail() {
         // GIVEN
-        String givenEmail = "rthierry@mail.com";
+        String givenEmail = "rnambinina@mail.com";
+        Customer expected = Customer.builder()
+                .firstName("Imane")
+                .lastName("Nambinina")
+                .email("rnambinina@mail.com")
+                .build();
 
         // WHEN
         Optional<Customer> result = customerRepository.findByEmail(givenEmail);
 
         // THEN
         assertThat(result).isPresent();
+        assertThat(result.get()).usingRecursiveComparison().ignoringFields("id").isEqualTo(expected);
     }
 
     /**
