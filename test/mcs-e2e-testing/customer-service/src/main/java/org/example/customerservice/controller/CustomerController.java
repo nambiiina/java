@@ -1,6 +1,5 @@
 package org.example.customerservice.controller;
 
-import jakarta.validation.Valid;
 import org.example.customerservice.dto.CustomerDTO;
 import org.example.customerservice.service.CustomerService;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,7 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CustomerDTO save(@RequestBody @Valid CustomerDTO customerDTO) {
+    public CustomerDTO save(@RequestBody CustomerDTO customerDTO) {
         return customerService.save(customerDTO);
     }
 
