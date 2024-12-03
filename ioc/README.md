@@ -10,3 +10,6 @@ List of jars :
 - Spring-beans
 - Spring-expression
 - commons-logging-1.1.1
+
+## Architecture
+![ioc.svg](ioc.svg)

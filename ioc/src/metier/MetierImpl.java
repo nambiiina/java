@@ -26,6 +26,11 @@ public class MetierImpl implements IMetier {
         System.out.println("Initialisation de MetierImpl");
     }
 
+    /**
+     * Pour injecter dans la variable dao un objet d'une classe qui implémente l'interface IDao.
+     * Mais il est aussi possible d'injecter via le constructeur.
+     * @param dao
+     */
     public void setDao(IDao dao) {
         this.dao = dao;
         System.out.println("Injection des dépendances");
