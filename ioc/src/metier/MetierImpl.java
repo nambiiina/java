@@ -15,6 +15,14 @@ public class MetierImpl implements IMetier {
     @Autowired
     private IDao dao;
 
+    public MetierImpl() {
+        System.out.println("Instanciation de MetierImpl");
+    }
+
+    public MetierImpl(IDao iDao) {
+        this.dao = iDao;
+    }
+
     @Override
     public double calcul() {
         double d = dao.getData();
@@ -34,9 +42,5 @@ public class MetierImpl implements IMetier {
     public void setDao(IDao dao) {
         this.dao = dao;
         System.out.println("Injection des dépendances");
-    }
-
-    public MetierImpl() {
-        System.out.println("Instanciation de MetierImpl");
     }
 }

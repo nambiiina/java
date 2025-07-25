@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         // staticIoc();
-        //dynamicIoc();
+        dynamicIoc();
 
         //Run spring
         //create a collection (Map) of beans
@@ -24,8 +24,8 @@ public class Main {
         //Use annotation
         //scan class
         //need spring aop dependency
-        ApplicationContext contextAnnotation = new AnnotationConfigApplicationContext("dao", "metier");
-        springIocAnnotation(contextAnnotation);
+//        ApplicationContext contextAnnotation = new AnnotationConfigApplicationContext("dao", "metier");
+//        springIocAnnotation(contextAnnotation);
     }
     private static void staticIoc() {
         /**
@@ -54,6 +54,7 @@ public class Main {
 
             String metierClassName = scanner.nextLine();
             Class cMetier = Class.forName(metierClassName);
+//            IMetier metier = (IMetier) cMetier.getConstructor(IDao.class).newInstance(dao);
             IMetier metier = (IMetier) cMetier.newInstance();
 
             //injection of dependance
