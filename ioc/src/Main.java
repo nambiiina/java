@@ -13,13 +13,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         // staticIoc();
-        dynamicIoc();
+//        dynamicIoc();
 
         //Run spring
         //create a collection (Map) of beans
         //Use xml config file
-        //ApplicationContext contextXml = new ClassPathXmlApplicationContext("config.xml");
-        //springIocXml(contextXml);
+        ApplicationContext contextXml = new ClassPathXmlApplicationContext("config.xml");
+        springIocXml(contextXml);
 
         //Use annotation
         //scan class

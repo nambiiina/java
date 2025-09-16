@@ -16,10 +16,11 @@ public class MetierImpl implements IMetier {
     private IDao dao;
 
     public MetierImpl() {
-        System.out.println("Instanciation de MetierImpl");
+        System.out.println("Instanciation de MetierImpl via constructeur sans paramètre");
     }
 
     public MetierImpl(IDao iDao) {
+        System.out.println("Instanciation de MetierImpl via constructeur avec paramètre");
         this.dao = iDao;
     }
 
