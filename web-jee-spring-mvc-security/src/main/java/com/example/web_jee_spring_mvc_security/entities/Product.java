@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor (access = AccessLevel.PRIVATE)
 @Builder
 @Getter // No general setter => To guarantee business invariance, expose business methods : updatePrice
+@Setter
 @ToString
 public class Product {
     @Id @GeneratedValue
@@ -25,11 +26,13 @@ public class Product {
     @Column(nullable = false, length = 120)
     private String name;
 
+    @NotNull(message = "Price is mandator")
     @PositiveOrZero(message = "Price must be >= 0")
     @Digits(integer = 8, fraction = 2, message = "Price must have <= 8 integer digits and <= 2 decimals")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
+    @NotNull(message = "Quantity is mandator")
     @PositiveOrZero(message = "Quantity must be >= 0")
     @Column(nullable = false)
     private Integer quantity;
