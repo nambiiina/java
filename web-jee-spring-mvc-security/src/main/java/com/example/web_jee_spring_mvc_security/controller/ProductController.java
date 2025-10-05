@@ -25,10 +25,10 @@ public class ProductController {
         return "product/list";
     }
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam(name = "id") Long id) {
+    @PostMapping("/{id}")
+    public String delete(@PathVariable Long id) {
         productRepository.deleteById(id);
-        return "redirect:product/list";
+        return "redirect:/products/list";
     }
 
     @GetMapping("/new")
@@ -41,6 +41,6 @@ public class ProductController {
     public String save(@Valid Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "product/new";
         productRepository.save(product);
-        return "redirect:products/list";
+        return "redirect:/products/list";
     }
 }
