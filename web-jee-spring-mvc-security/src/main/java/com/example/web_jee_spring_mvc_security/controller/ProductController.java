@@ -4,6 +4,7 @@ import com.example.web_jee_spring_mvc_security.entities.Product;
 import com.example.web_jee_spring_mvc_security.repository.ProductRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ public class ProductController {
     private final ProductRepository productRepository;
 
     @GetMapping("/list")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public String list(Model model) {
         List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
@@ -26,18 +28,21 @@ public class ProductController {
     }
 
     @PostMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String delete(@PathVariable Long id) {
         productRepository.deleteById(id);
         return "redirect:/products/list";
     }
 
     @GetMapping("/new")
+    @PreAuthorize("hasRole('ADMIN')")
     public String create(Model model) {
         model.addAttribute("product", Product.builder().build());
         return "product/new";
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public String save(@Valid Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "product/new";
         productRepository.save(product);

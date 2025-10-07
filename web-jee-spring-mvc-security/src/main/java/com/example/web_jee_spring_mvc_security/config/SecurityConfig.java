@@ -2,7 +2,7 @@ package com.example.web_jee_spring_mvc_security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -32,11 +33,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .formLogin(Customizer.withDefaults())
+                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/login").permitAll())
+//                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
+//                        authorizationManagerRequestMatcherRegistry.requestMatchers("/products/list").hasRole("USER"))
+//                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
+//                        authorizationManagerRequestMatcherRegistry.requestMatchers("/products","/products/new", "/products/delete").hasRole("ADMIN"))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers("/products/list").hasRole("USER"))
-                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers("/products","/products/new", "/products/delete").hasRole("ADMIN"))
+                        authorizationManagerRequestMatcherRegistry.requestMatchers("/webjars/**").permitAll())
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
                         httpSecurityExceptionHandlingConfigurer.accessDeniedPage("/403"))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
