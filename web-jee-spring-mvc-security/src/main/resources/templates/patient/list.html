@@ -38,6 +38,11 @@
                 </tr>
                 </tbody>
             </table>
+            <ul class="nav nav-pills">
+                <li th:each="page, status : ${totalPages}">
+                    <a th:class="${status.index==currentPage ? 'btn btn-info m-1' : 'btn btn-outline-info m-1'}" th:text="${status.index}" th:href="@{/patients(page=${status.index}, size=10)}"></a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

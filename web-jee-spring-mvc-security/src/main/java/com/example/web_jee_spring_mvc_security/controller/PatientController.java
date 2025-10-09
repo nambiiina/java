@@ -4,14 +4,13 @@ import com.example.web_jee_spring_mvc_security.entities.Patient;
 import com.example.web_jee_spring_mvc_security.repository.PatientRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,11 +21,15 @@ public class PatientController {
 
     private final PatientRepository patientRepository;
 
-    @GetMapping("/list")
+    @GetMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public String list(Model model) {
-        List<Patient> patients = patientRepository.findAll();
-        model.addAttribute("patients", patients);
+    public String listPaginated(Model model,
+                                @RequestParam(name = "page", defaultValue = "0") int page,
+                                @RequestParam(name = "size", defaultValue = "10") int size) {
+        Page<Patient> paginatedPatients = patientRepository.findAll(PageRequest.of(page, size));
+        model.addAttribute("patients", paginatedPatients.getContent());
+        model.addAttribute("totalPages", new int[paginatedPatients.getTotalPages()]);
+        model.addAttribute("currentPage", page);
         return "patient/list";
     }
 
@@ -34,7 +37,7 @@ public class PatientController {
     @PreAuthorize("hasRole('ADMIN')")
     public String delete(@PathVariable Long id) {
         patientRepository.deleteById(id);
-        return "redirect:/patients/list";
+        return "redirect:/patients";
     }
 
     @GetMapping("/new")
@@ -49,6 +52,6 @@ public class PatientController {
     public String save(@Valid Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "patient/new";
         patientRepository.save(patient);
-        return "redirect:/patients/list";
+        return "redirect:/patients";
     }
 }
