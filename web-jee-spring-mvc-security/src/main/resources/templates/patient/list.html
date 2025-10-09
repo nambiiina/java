@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>List of patients</title>
+</head>
+<body>
+<h2>List of patients</h2>
+<div class="p-3" layout:fragment="content">
+    <div sec:authorize="hasRole('ADMIN')" class="p-3">
+        <a class="btn btn-primary" th:href="@{/patients/new}">New Patient</a>
+    </div>
+    <div class="card">
+        <div class="card-header">List of patients</div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <th>ID</th><th>First name</th><th>Last name</th><th>Date of birth</th><th>Sick</th><th>Score</th>
+                </thead>
+                <tbody>
+                <tr th:each="p:${patients}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.firstName}"></td>
+                    <td th:text="${p.lastName}"></td>
+                    <td th:text="${p.dateOfBirth}"></td>
+                    <td th:text="${p.sick}"></td>
+                    <td th:text="${p.score}"></td>
+                    <td sec:authorize="hasRole('ADMIN')">
+                        <form method="post" th:action="@{/patients/{id}(id=${p.id})}">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

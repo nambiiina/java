@@ -35,9 +35,9 @@ public class SecurityConfig {
         return httpSecurity
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/login").permitAll())
 //                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-//                        authorizationManagerRequestMatcherRegistry.requestMatchers("/products/list").hasRole("USER"))
+//                        authorizationManagerRequestMatcherRegistry.requestMatchers("/patients/list").hasRole("USER"))
 //                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-//                        authorizationManagerRequestMatcherRegistry.requestMatchers("/products","/products/new", "/products/delete").hasRole("ADMIN"))
+//                        authorizationManagerRequestMatcherRegistry.requestMatchers("/patients","/patients/new", "/patients/delete").hasRole("ADMIN"))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry.requestMatchers("/webjars/**").permitAll())
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
