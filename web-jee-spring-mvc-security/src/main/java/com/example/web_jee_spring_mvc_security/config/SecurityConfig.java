@@ -33,7 +33,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/login").permitAll())
+                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
 //                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
 //                        authorizationManagerRequestMatcherRegistry.requestMatchers("/patients/**").hasRole("USER"))
 //                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->

@@ -12,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/patients")
 @RequiredArgsConstructor
@@ -23,21 +21,24 @@ public class PatientController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public String listPaginated(Model model,
+    public String search(Model model,
                                 @RequestParam(name = "page", defaultValue = "0") int page,
-                                @RequestParam(name = "size", defaultValue = "10") int size) {
-        Page<Patient> paginatedPatients = patientRepository.findAll(PageRequest.of(page, size));
+                                @RequestParam(name = "size", defaultValue = "10") int size,
+                                @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        Page<Patient> paginatedPatients = patientRepository.findByFirstNameContainsIgnoreCase(keyword, PageRequest.of(page, size));
+        if (paginatedPatients.getNumberOfElements() == 0 && paginatedPatients.getTotalPages() > 0) return "redirect:/patients?page=" + --page +  "&keyword=" + keyword;
         model.addAttribute("patients", paginatedPatients.getContent());
         model.addAttribute("totalPages", new int[paginatedPatients.getTotalPages()]);
         model.addAttribute("currentPage", page);
+        model.addAttribute("keyword", keyword);
         return "patient/list";
     }
 
     @PostMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, @RequestParam(name = "page") Integer page, @RequestParam(name = "keyword") String keyword) {
         patientRepository.deleteById(id);
-        return "redirect:/patients";
+        return "redirect:/patients?page=" + page +  "&keyword=" + keyword;
     }
 
     @GetMapping("/new")
