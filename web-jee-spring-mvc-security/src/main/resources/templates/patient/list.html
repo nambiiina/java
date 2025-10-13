@@ -21,7 +21,9 @@
             <form method="get" th:action="@{/patients}">
                 <label>Keyword</label>
                 <input type="text" name="keyword" th:value="${keyword}">
-                <button class="btn btn-outline-info">Search</button>
+                <button class="btn btn-outline-info">
+                    <i class="bi bi-search"></i>
+                </button>
             </form>
             <table class="table">
                 <thead>
@@ -37,8 +39,15 @@
                     <td th:text="${p.score}"></td>
                     <td sec:authorize="hasRole('ADMIN')">
                         <form method="post" th:action="@{/patients/{id}(id=${p.id}, page=${currentPage}, keyword=${keyword})}">
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer?')">Delete</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer?')">
+                                <i class="bi bi-trash"></i>
+                            </button>
                         </form>
+                    </td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/patients/{id}/edit(id=${p.id})}">
+                            <i class="bi bi-pencil"></i>
+                        </a>
                     </td>
                 </tr>
                 </tbody>

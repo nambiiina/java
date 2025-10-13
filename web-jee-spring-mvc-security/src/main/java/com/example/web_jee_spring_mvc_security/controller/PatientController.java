@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/patients")
 @RequiredArgsConstructor
@@ -55,4 +57,14 @@ public class PatientController {
         patientRepository.save(patient);
         return "redirect:/patients";
     }
+
+    @GetMapping("/{id}/edit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String edit(Model model, @PathVariable(name = "id") Long id) {
+        Optional<Patient> patient = patientRepository.findById(id);
+        if (patient.isEmpty()) return "patient/list";
+        model.addAttribute("patient", patient.get());
+        return "patient/edit";
+    }
+
 }
