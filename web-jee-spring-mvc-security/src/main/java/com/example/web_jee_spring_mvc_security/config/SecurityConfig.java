@@ -21,6 +21,10 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    /*
+    * InMemoryUserDetailsManager implements UserDetailsManager, UserDetailsPasswordService
+    * UserDetailsManager extends UserDetailsService
+    * */
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager(PasswordEncoder passwordEncoder) {
         return new InMemoryUserDetailsManager(
