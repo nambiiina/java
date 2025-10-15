@@ -9,3 +9,9 @@ create table if not exists authorities (
     constraint fk_authorities_users foreign key(username) references users(username)
 );
 create unique index if not exists ix_auth_username on authorities (username,authority);
+CREATE TABLE IF NOT EXISTS persistent_logins (
+    username  VARCHAR(64) NOT NULL,
+    series    VARCHAR(64) PRIMARY KEY,
+    token     VARCHAR(64) NOT NULL,
+    last_used TIMESTAMP   NOT NULL
+);

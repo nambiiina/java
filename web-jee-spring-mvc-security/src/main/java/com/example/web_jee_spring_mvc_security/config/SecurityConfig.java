@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 
 import javax.sql.DataSource;
 
@@ -23,6 +25,14 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JdbcTokenRepositoryImpl jdbcTokenRepositoryImpl(DataSource dataSource) {
+        JdbcTokenRepositoryImpl jdbcTokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepositoryImpl.setDataSource(dataSource);
+//        jdbcTokenRepositoryImpl.setCreateTableOnStartup(true); // Create persistent_logins if missing
+        return jdbcTokenRepositoryImpl;
     }
 
     /*
@@ -52,9 +62,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, LogoutHandler logoutHandler, JdbcTokenRepositoryImpl jdbcTokenRepository) throws Exception {
         return httpSecurity
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
+                .rememberMe(httpSecurityRememberMeConfigurer ->
+                        httpSecurityRememberMeConfigurer
+                                .tokenRepository(jdbcTokenRepository)
+                                .tokenValiditySeconds(7*24*3600))
+                .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
+                        .logoutUrl("/logout")
+                        .addLogoutHandler(logoutHandler)
+                        .logoutSuccessUrl("/login"))
 //                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
 //                        authorizationManagerRequestMatcherRegistry.requestMatchers("/patients/**").hasRole("USER"))
 //                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
@@ -66,6 +84,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry.anyRequest().authenticated())
                 .build();
+    }
+
+    @Bean
+    public LogoutHandler rememberMeCleanup(JdbcTokenRepositoryImpl tokenRepository) {
+        return (request, response, authentication) -> {
+            if (authentication != null && authentication.isAuthenticated()) tokenRepository.removeUserTokens(authentication.getName());
+        };
     }
 
 }
