@@ -1,0 +1,25 @@
+# H2 Database
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:patients_db
+#    username: sa
+#    password:
+#  h2:
+#    console:
+#      enabled: true
+
+# Mysql Database
+spring:
+  sql:
+    init:
+      mode: always # Banned in prod
+      schema-locations: classpath:schema.sql
+  datasource:
+    url: jdbc:mysql://localhost:3306/patients_db?createDatabaseIfNotExist=true
+    username: root
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.MySQLDialect
+#    defer-datasource-initialization: true

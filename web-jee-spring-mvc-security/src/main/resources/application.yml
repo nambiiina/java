@@ -1,0 +1,8 @@
+# Use flyway or liquibase to manage schema
+spring:
+  application:
+    name: web-jee-spring-mvc-security
+  profiles:
+    active: dev
+server:
+  port: 8888
