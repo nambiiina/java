@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class PatientDataLoader implements ApplicationRunner {
     private final PatientRepository patientRepository;
     private final AppUserRepository appUserRepository;
     private final AppRoleRepository appRoleRepository;
+    private final PasswordEncoder passwordEncoder;
     private final Random rnd = new Random();
 
     @Override
@@ -56,24 +58,22 @@ public class PatientDataLoader implements ApplicationRunner {
         if (!appUserRepository.existsByUsername("admin")) {
             AppUser admin = AppUser.builder()
                     .username("admin")
-                    .password("admin")
+                    .password(passwordEncoder.encode("admin"))
                     .email("admin@mail.com")
                     .enabled(true)
+                    .roles(Set.of(adminRole, userRole))
                     .build();
-            admin = appUserRepository.save(admin);
-            admin.getRoles().addAll(Set.of(adminRole, userRole));
             appUserRepository.save(admin);
         }
 
         if (!appUserRepository.existsByUsername("user")) {
             AppUser user = AppUser.builder()
                     .username("user")
-                    .password("user")
+                    .password(passwordEncoder.encode("user"))
                     .email("user@mail.com")
                     .enabled(true)
+                    .roles(Set.of(userRole))
                     .build();
-            user = appUserRepository.save(user);
-            user.getRoles().add(userRole);
             appUserRepository.save(user);
         }
     }

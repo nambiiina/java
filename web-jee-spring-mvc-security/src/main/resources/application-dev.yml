@@ -15,11 +15,11 @@ spring:
       mode: always # Banned in prod
       schema-locations: classpath:schema.sql
   datasource:
-    url: jdbc:mysql://localhost:3306/patients_db?createDatabaseIfNotExist=true
-    username: root
-    password:
+    url: jdbc:mysql://localhost:3306/patients_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: springuser
+    password: springpass
   jpa:
     hibernate:
       ddl-auto: update
-    properties.hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
 #    defer-datasource-initialization: true
