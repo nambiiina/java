@@ -25,7 +25,7 @@ a hybrid of package-by-feature and package-by-layer. Only cross-cutting infrastr
 (`config/`) stays split out at the top level, outside any feature.
 
 - `BlogApplication` — `@SpringBootApplication` entry point (`com.example.blog`, root package). Component-scan covers `post` and `config` as sub-packages, no explicit `@ComponentScan` needed.
-- `config/` — `JpaConfig` (`@EnableJpaAuditing`), `H2ConsoleConfig` (manually registers the H2 console servlet, gated by `spring.h2.console.enabled`, needed because Spring Boot 4 dropped the H2 console auto-configuration). Deliberately technical/transverse, not business — stays outside `post/`.
+- `config/` — `JpaConfig` (`@EnableJpaAuditing`), `H2ConsoleConfig` (manually registers the H2 console servlet, gated by `spring.h2.console.enabled`, needed because Spring Boot 4 dropped the H2 console auto-configuration), `OpenApiConfig` (OpenAPI 3 metadata bean consumed by springdoc). Deliberately technical/transverse, not business — stays outside `post/`.
 - `post/` — the `Post` feature, split by technical role:
   - `post/entity/Post.java`
   - `post/controller/PostController.java` — `/api/posts`, constructor injection via Lombok's `@RequiredArgsConstructor`.

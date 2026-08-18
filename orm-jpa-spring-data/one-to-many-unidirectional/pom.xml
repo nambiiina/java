@@ -50,6 +50,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- TestRestTemplate (Spring Boot 4.1): spring-boot-resttestclient's Maven POM under-declares its runtime deps vs. its Gradle module metadata -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-resttestclient</artifactId>

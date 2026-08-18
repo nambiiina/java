@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class OpenApiEndpointsIT {
+class OpenApiEndpointsTest {
 
     @Value("${local.server.port}")
     private int port;
@@ -25,6 +25,7 @@ class OpenApiEndpointsIT {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).contains("\"/api/posts\"");
         assertThat(response.getBody()).contains("\"/api/posts/{postId}/comments\"");
+        assertThat(response.getBody()).contains("\"title\":\"Blog API\"");
     }
 
     @Test
