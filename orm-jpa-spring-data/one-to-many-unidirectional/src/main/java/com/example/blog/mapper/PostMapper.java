@@ -5,6 +5,7 @@ import com.example.blog.dto.PostResponse;
 import com.example.blog.entity.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(
         componentModel = "spring",
@@ -24,4 +25,10 @@ public interface PostMapper {
      * grâce à CommentMapper.toResponse() et au paramètre 'uses'.
      */
     PostResponse toResponse(Post entity);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "comments", ignore = true)
+    void updateEntityFromDto(PostRequest dto, @MappingTarget Post entity);
 }
