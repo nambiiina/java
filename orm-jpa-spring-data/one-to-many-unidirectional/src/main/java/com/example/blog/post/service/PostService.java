@@ -1,8 +1,8 @@
-package com.example.blog.service;
+package com.example.blog.post.service;
 
-import com.example.blog.dto.CommentRequest;
-import com.example.blog.dto.PostRequest;
-import com.example.blog.entity.Post;
+import com.example.blog.post.comment.dto.CommentRequest;
+import com.example.blog.post.dto.PostRequest;
+import com.example.blog.post.entity.Post;
 
 import java.util.List;
 

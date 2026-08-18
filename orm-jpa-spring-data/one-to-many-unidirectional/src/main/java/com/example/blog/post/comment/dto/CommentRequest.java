@@ -1,4 +1,4 @@
-package com.example.blog.dto;
+package com.example.blog.post.comment.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

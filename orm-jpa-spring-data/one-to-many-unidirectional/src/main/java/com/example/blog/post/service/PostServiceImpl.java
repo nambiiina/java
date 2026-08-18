@@ -1,12 +1,12 @@
-package com.example.blog.service;
+package com.example.blog.post.service;
 
-import com.example.blog.dto.CommentRequest;
-import com.example.blog.dto.PostRequest;
-import com.example.blog.entity.Comment;
-import com.example.blog.entity.Post;
-import com.example.blog.mapper.CommentMapper;
-import com.example.blog.mapper.PostMapper;
-import com.example.blog.repository.PostRepository;
+import com.example.blog.post.comment.dto.CommentRequest;
+import com.example.blog.post.comment.entity.Comment;
+import com.example.blog.post.comment.mapper.CommentMapper;
+import com.example.blog.post.dto.PostRequest;
+import com.example.blog.post.entity.Post;
+import com.example.blog.post.mapper.PostMapper;
+import com.example.blog.post.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

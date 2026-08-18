@@ -1,11 +1,11 @@
-package com.example.blog.controller;
+package com.example.blog.post.controller;
 
-import com.example.blog.dto.CommentRequest;
-import com.example.blog.dto.PostRequest;
-import com.example.blog.dto.PostResponse;
-import com.example.blog.entity.Post;
-import com.example.blog.mapper.PostMapper;
-import com.example.blog.service.PostService;
+import com.example.blog.post.comment.dto.CommentRequest;
+import com.example.blog.post.dto.PostRequest;
+import com.example.blog.post.dto.PostResponse;
+import com.example.blog.post.entity.Post;
+import com.example.blog.post.mapper.PostMapper;
+import com.example.blog.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

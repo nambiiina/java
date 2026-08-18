@@ -1,5 +1,6 @@
-package com.example.blog.dto;
+package com.example.blog.post.dto;
 
+import com.example.blog.post.comment.dto.CommentResponse;
 import lombok.Builder;
 import lombok.Data;
 

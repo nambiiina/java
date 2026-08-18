@@ -1,5 +1,6 @@
-package com.example.blog.entity;
+package com.example.blog.post.entity;
 
+import com.example.blog.post.comment.entity.Comment;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

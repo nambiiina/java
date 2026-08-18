@@ -1,8 +1,8 @@
-package com.example.blog.mapper;
+package com.example.blog.post.comment.mapper;
 
-import com.example.blog.dto.CommentRequest;
-import com.example.blog.dto.CommentResponse;
-import com.example.blog.entity.Comment;
+import com.example.blog.post.comment.dto.CommentRequest;
+import com.example.blog.post.comment.dto.CommentResponse;
+import com.example.blog.post.comment.entity.Comment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
