@@ -13,6 +13,8 @@ Spring Boot (4.1.0, Java 21) demo of a **unidirectional `@OneToMany` + `@JoinCol
 - Test (all): `./mvnw test`
 - Test (single class): `./mvnw test -Dtest=BlogApplicationTests`
 - H2 console (while app is running): `http://localhost:8080/h2-console` — JDBC URL `jdbc:h2:mem:testdb`, user `sa`, password `test`
+- Swagger UI (while app is running): `http://localhost:8080/swagger-ui/index.html`
+- OpenAPI JSON (while app is running): `http://localhost:8080/v3/api-docs`
 
 ## Architecture
 
