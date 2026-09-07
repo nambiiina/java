@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Spring Boot (4.1.0, Java 21) demo of a **unidirectional `@OneToMany` + `@JoinColumn`** JPA mapping using Spring Data JPA and an in-memory H2 database. Maven artifact `com.example:blog`, base package `com.example.blog`.
 
+## Assistant conventions
+
+- End every response with a one-line token usage summary, format: `Tokens: ~Xk consommés (P1%) · ~Yk restants (P2%) sur 15M` — both figures rounded to the nearest thousand, based on the `<total_tokens>` figure visible in context (nominal ceiling 15,000,000; the figure can reset mid-session after context compaction — just use the fresh reading as the new baseline when that happens).
+
 ## Commands
 
 - Build: `./mvnw clean package` (`mvnw.cmd` on Windows PowerShell)
